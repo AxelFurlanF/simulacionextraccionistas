@@ -12,58 +12,81 @@ namespace SimulacionExtracciones
 
         static void Main(string[] args)
         {
-            int e, t, tpll, ns, tf, currentTps, nt;
+            int e, t, tpll, ns, tf, currentTps, nt, ss, sll, sta;
             int[] tps = { };
-            int[] ito= { };
-            int[] sto= { };
+            int[] ito = { };
+            int[] sto = { };
             Console.WriteLine("Ingrese número de extraccionistas: ");
             e = Convert.ToInt32(Console.ReadLine());
 
-            t = tpll = 8; tf = 11; ns = nt = 0;
-            //hasta que no quede nadie
-            do
+            t = tpll = 8; tf = 11; ns = nt = 0; ss = sll = sta = 0;
+
+            while (t <= tf)
             {
+                simulacion(e, out t, ref tpll, ref ns, out currentTps, ref nt, ref ss, ref sll, ref sta, tps, ito, sto);
+            }
+            while (ns > 0)
+            {
+                tpll = hv;
+                simulacion(e, out t, ref tpll, ref ns, out currentTps, ref nt, ref ss, ref sll, ref sta, tps, ito, sto);
+            }
 
-                //hasta que se acabe la hora
-                while (t <= tf)
+            Console.WriteLine("PEC: "+ (ss-sll-sta)/nt);
+            Console.WriteLine("PTOs: ");
+            int promedio=0;
+            foreach (var item in sto)
+            {
+                promedio+= (item * 100) / t;
+                Console.WriteLine(item * 100 / t);
+            }
+            Console.WriteLine("PTOs promedio: "+ promedio/sto.Length);
+            Console.ReadKey();
+
+
+
+        }
+
+        private static void simulacion(int e, out int t, ref int tpll, ref int ns, out int currentTps, ref int nt, ref int ss, ref int sll, ref int sta, int[] tps, int[] ito, int[] sto)
+        {
+            currentTps = encontrarMenorTps(tps);
+            //proximo evento
+
+            //salida
+            if (tps[currentTps] < tpll)
+            {
+                t = tps[currentTps];
+                ns--;
+                if (ns >= e)
                 {
-                    currentTps = encontrarMenorTps(tps);
-                    //proximo evento
-
-                    //salida
-                    if (tps[currentTps] < tpll)
-                    {
-                        t = tps[currentTps];
-                        ns--;
-                        if (ns >= e)
-                        {
-                            tps[currentTps] = t + generarTA();
-                        }
-                        else
-                        {
-                            ito[currentTps] = t;
-                            tps[currentTps] = hv;
-                        }
-                        nt++;
-                    }
-                    else
-                    //entrada
-                    {
-                        t = tpll;
-                        tpll = t + generarIA();
-
-                        if (ns <= e)
-                        {
-                            currentTps = buscarPuesto(tps);
-                            sto[currentTps] += t - ito[currentTps];
-                            tps[currentTps] = t + generarTA();
-
-                        }
-                    }
+                    int ta = generarTA();
+                    tps[currentTps] = t + ta;
+                    sta += ta;
                 }
-                Console.WriteLine(currentTps);
-                Console.ReadKey();
-            } while (ns > 0);
+                else
+                {
+                    ito[currentTps] = t;
+                    tps[currentTps] = hv;
+                }
+                ss += t;
+                nt++;
+            }
+            else
+            //entrada
+            {
+                t = tpll;
+                tpll = t + generarIA();
+                ns++;
+                sll += t;
+                if (ns <= e)
+                {
+                    currentTps = buscarPuesto(tps);
+                    sto[currentTps] += t - ito[currentTps];
+                    int ta = generarTA;
+                    tps[currentTps] = t + ta;
+                    sta += ta;
+
+                }
+            }
         }
 
         private static int buscarPuesto(int[] tps)
