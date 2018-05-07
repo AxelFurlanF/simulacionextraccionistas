@@ -1,0 +1,7 @@
+C:\Users\axelf\source\repos\SimulacionExtracciones\SimulacionExtracciones\bin\Debug\SimulacionExtracciones.exe.config
+C:\Users\axelf\source\repos\SimulacionExtracciones\SimulacionExtracciones\bin\Debug\SimulacionExtracciones.exe
+C:\Users\axelf\source\repos\SimulacionExtracciones\SimulacionExtracciones\bin\Debug\SimulacionExtracciones.pdb
+C:\Users\axelf\source\repos\SimulacionExtracciones\SimulacionExtracciones\obj\Debug\SimulacionExtracciones.csprojAssemblyReference.cache
+C:\Users\axelf\source\repos\SimulacionExtracciones\SimulacionExtracciones\obj\Debug\SimulacionExtracciones.csproj.CoreCompileInputs.cache
+C:\Users\axelf\source\repos\SimulacionExtracciones\SimulacionExtracciones\obj\Debug\SimulacionExtracciones.exe
+C:\Users\axelf\source\repos\SimulacionExtracciones\SimulacionExtracciones\obj\Debug\SimulacionExtracciones.pdb
