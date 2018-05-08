@@ -9,15 +9,13 @@ namespace SimulacionExtracciones
     class Program
     {
         private const int hv = 100000000;
-        private const double V = 0.1961 * 2.1947;
-
-
+       
         static void Main(string[] args)
         {
             int e, t, tpll, ns, tf, currentTps, nt, ss, sll, sta;
-            int[] tps = { };
-            int[] ito = { };
-            int[] sto = { };
+            int[] tps = {hv };
+            int[] ito = {0 };
+            int[] sto = {0 };
             Console.WriteLine("Ingrese número de extraccionistas: ");
             e = Convert.ToInt32(Console.ReadLine());
 
@@ -91,21 +89,40 @@ namespace SimulacionExtracciones
             }
         }
 
+        private static int generarIA()
+        {
+            Random rnd = new Random();
+            double x = rnd.NextDouble() * (0.975 - 0.01) + 0.01;
+            int r = Convert.ToInt32(0.163 / Math.Pow( (-1 + Math.Pow(x, (-0.0269811))) , 0.8375209380234506));
+            Console.WriteLine("IA generado: " + r);
+            return r;
+        }
+
         private static int generarTA()
         {
             Random rnd = new Random();
             double x = rnd.NextDouble() * (0.998 - 0.001) + 0.001;
-            return Math.Pow (Math.Pow(1-x,-1.1886)-1 , V);
+            int r = Convert.ToInt32(Math.Pow (Math.Pow(1-x,-1.1886)-1 , 0.1961 * 2.1947));
+            Console.WriteLine("TA generado: " + r);
+            return r;
         }
 
         private static int buscarPuesto(int[] tps)
         {
+            if (tps.Length == 0)
+            {
+                return 0;
+            }
             return Array.FindIndex(tps, item => item == hv);
 
         }
 
         private static int encontrarMenorTps(int[] tps)
         {
+            if (tps.Length==0)
+            {
+                return 0;
+            }
             return Array.IndexOf(tps, tps.Min()); ;
         }
     }
