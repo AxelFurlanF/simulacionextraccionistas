@@ -9,6 +9,8 @@ namespace SimulacionExtracciones
     class Program
     {
         private const int hv = 100000000;
+        private const double V = 0.1961 * 2.1947;
+
 
         static void Main(string[] args)
         {
@@ -19,7 +21,7 @@ namespace SimulacionExtracciones
             Console.WriteLine("Ingrese número de extraccionistas: ");
             e = Convert.ToInt32(Console.ReadLine());
 
-            t = tpll = 8; tf = 11; ns = nt = 0; ss = sll = sta = 0;
+            t = tpll = 0; tf = 180; ns = nt = 0; ss = sll = sta = 0;
 
             while (t <= tf)
             {
@@ -81,12 +83,19 @@ namespace SimulacionExtracciones
                 {
                     currentTps = buscarPuesto(tps);
                     sto[currentTps] += t - ito[currentTps];
-                    int ta = generarTA;
+                    int ta = generarTA();
                     tps[currentTps] = t + ta;
                     sta += ta;
 
                 }
             }
+        }
+
+        private static int generarTA()
+        {
+            Random rnd = new Random();
+            double x = rnd.NextDouble() * (0.998 - 0.001) + 0.001;
+            return Math.Pow (Math.Pow(1-x,-1.1886)-1 , V);
         }
 
         private static int buscarPuesto(int[] tps)
