@@ -13,11 +13,20 @@ namespace SimulacionExtracciones
         static void Main(string[] args)
         {
             int e, t, tpll, ns, tf, currentTps, nt, ss, sll, sta;
-            int[] tps = {hv };
-            int[] ito = {0 };
-            int[] sto = {0 };
+            
             Console.WriteLine("Ingrese número de extraccionistas: ");
             e = Convert.ToInt32(Console.ReadLine());
+
+            //crear los puestos
+            int[] tps = new int[e];
+            int[] ito = new int[e];
+            int[] sto = new int[e];
+            //inicializar todos los tps en hv
+            for (int i = 0; i < tps.Length; i++)
+            {
+                tps[i] = hv;
+            }
+         
 
             t = tpll = 0; tf = 180; ns = nt = 0; ss = sll = sta = 0;
 
