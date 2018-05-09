@@ -61,6 +61,7 @@ namespace SimulacionExtracciones
             Console.WriteLine("PTOs promedio: " + promedio / sto.Length);
             Console.WriteLine("Duración simulación: " + t);
 
+            Console.WriteLine("Escriba 'y' si desea correr la simulación de nuevo");
             if (Console.ReadLine().ToLower() == "y")
             {
                 goto Programa;
@@ -84,7 +85,8 @@ namespace SimulacionExtracciones
                 if (ns >= e)
                 {
                     int ta = generarTA(rnd);
-                    tps[currentTps] = t + ta;
+                    int ret = generarRET(rnd);
+                    tps[currentTps] = t + ta + ret;
                     sta += ta;
                 }
                 else
@@ -108,7 +110,8 @@ namespace SimulacionExtracciones
                     currentTps = buscarPuesto(tps, sto);
                     sto[currentTps] += t - ito[currentTps];
                     int ta = generarTA(rnd);
-                    tps[currentTps] = t + ta;
+                    int ret = generarRET(rnd);
+                    tps[currentTps] = t + ta+ret;
                     sta += ta;
 
                 }
@@ -130,9 +133,18 @@ namespace SimulacionExtracciones
             double x = rnd.NextDouble() * (0.998 - 0.001) + 0.001;
             int r = Convert.ToInt32(Math.Pow(Math.Pow(1 - x, -1.1886) - 1, 0.1961 * 2.1947));
             Console.WriteLine("TA generado: " + r);
-            return r+9;
+            return r;
         }
 
+        private static int generarRET(Random rnd)
+        {
+
+            double x = rnd.NextDouble() * (0.975 - 0.01) + 0.01;
+            double xx = Math.Pow(1 / x - 1, 0.567620);
+            int r = Convert.ToInt32(2.115 / xx);
+            Console.WriteLine("RET generado: " + r);
+            return r;
+        }
         private static int buscarPuesto(int[] tps, int[] sto)
         {
             if (tps.Length == 0)
