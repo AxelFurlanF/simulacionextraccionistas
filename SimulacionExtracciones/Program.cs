@@ -32,7 +32,7 @@ namespace SimulacionExtracciones
             }
 
 
-            t = tpll = 0; tf = 200; ns = nt = 0; ss = sll = sta = 0;
+            t = tpll = 0; tf = 20000; ns = nt = 0; ss = sll = sta = 0;
 
             while (t <= tf)
             {
@@ -124,7 +124,7 @@ namespace SimulacionExtracciones
             double x = rnd.NextDouble() * (0.975 - 0.01) + 0.01;
             int r = Convert.ToInt32(0.163 / Math.Pow((-1 + Math.Pow(x, (-0.0269811))), 0.8375209380234506));
             Console.WriteLine("IA generado: " + r);
-            return r;
+            return r/2;
         }
 
         private static int generarTA(Random rnd)
